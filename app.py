@@ -31,11 +31,11 @@ def get_time_left():
 
 def get_unlocked_notes():
     """Fetch notes from BigQuery that should be unlocked based on the current date."""
-    now = datetime.datetime.utcnow().date()
+    now = datetime.datetime.utcnow().date().strftime('%Y-%m-%d')
     query = f"""
         SELECT note_text, unlock_date 
         FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
-        WHERE unlock_date <= DATE('{now}')
+        WHERE DATE(unlock_date) <= DATE('{now}')
         ORDER BY unlock_date ASC
     """
     results = client.query(query).result()
