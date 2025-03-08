@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown Timer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #5a189a, #3c096c);
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,32 +19,40 @@
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
+            padding: 50px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: 500px;
             width: 90%;
+            border: none;
         }
         h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
         .timer {
             display: flex;
             justify-content: space-between;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 600;
             margin-top: 20px;
         }
         .time-box {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            min-width: 85px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            min-width: 100px;
             flex: 1;
-            margin: 0 5px;
+            margin: 0 8px;
             text-transform: uppercase;
-            box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0px 0px 15px rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+        span {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
         }
     </style>
     <script>
@@ -52,13 +60,8 @@
             let days = document.getElementById("days").textContent;
             let hours = document.getElementById("hours").textContent;
             let minutes = document.getElementById("minutes").textContent;
-            let seconds = document.getElementById("seconds").textContent;
-
-            seconds--;
-            if (seconds < 0) {
-                seconds = 59;
-                minutes--;
-            }
+            
+            minutes--;
             if (minutes < 0) {
                 minutes = 59;
                 hours--;
@@ -71,19 +74,17 @@
             document.getElementById("days").textContent = days;
             document.getElementById("hours").textContent = hours;
             document.getElementById("minutes").textContent = minutes;
-            document.getElementById("seconds").textContent = seconds;
         }
-        setInterval(updateTimer, 1000);
+        setInterval(updateTimer, 60000);
     </script>
 </head>
 <body>
     <div class="container">
         <h1>Exciting Countdown!</h1>
         <div class="timer">
-            <div class="time-box"><span id="days">{{ time.days }}</span><br>Days</div>
-            <div class="time-box"><span id="hours">{{ time.hours }}</span><br>Hours</div>
-            <div class="time-box"><span id="minutes">{{ time.minutes }}</span><br>Minutes</div>
-            <div class="time-box"><span id="seconds">{{ time.seconds }}</span><br>Seconds</div>
+            <div class="time-box"><span id="days">{{ time.days }}</span>D</div>
+            <div class="time-box"><span id="hours">{{ time.hours }}</span>H</div>
+            <div class="time-box"><span id="minutes">{{ time.minutes }}</span>M</div>
         </div>
     </div>
 </body>
