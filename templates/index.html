@@ -27,6 +27,15 @@
       padding: 40px 20px;
       width: 100%;
     }
+    .header-image {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 0 auto 30px;
+      display: block;
+      border: 4px solid #fff;
+    }
     h1 {
       font-size: 3.5rem;
       font-weight: 600;
@@ -72,13 +81,13 @@
         })
         .catch(error => console.error('Error fetching time:', error));
     }
-    // Initial call and update every 60 seconds
-    updateTimer();
-    setInterval(updateTimer, 60000);
+    updateTimer(); // Initial fetch
+    setInterval(updateTimer, 60000); // Update every 60 seconds
   </script>
 </head>
 <body>
   <div class="container">
+    <img class="header-image" src="https://instagram.fcai16-1.fna.fbcdn.net/v/t51.2885-19/358032417_122316164241779_939224877035827866_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_ht=instagram.fcai16-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2AHJtNjNfolTtv_kV0FVplmpW2_9AERa4DJ4KgqcUqXPjHN1eIOog-kTHV278RaaDH0&_nc_ohc=G0vs7FF-V0wQ7kNvgESXW_0&_nc_gid=af52997943314a4dbe0d468b8db5670a&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYGFw3fm53Ikv3zcFJVSAg_LKe_B8DJOrSOIP3XCyypypA&oe=67D1E883&_nc_sid=10d13b" alt="Header Image">
     <h1>Countdown to Aug 10, 2025</h1>
     <div class="timer">
       <div class="time-box">
