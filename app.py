@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 
 # Set your countdown target
-TARGET_DATE = datetime(2025, 08, 10, 23, 59)
+TARGET_DATE = datetime(2025, 8, 10, 23, 59)
 
 @app.route('/')
 def index():
