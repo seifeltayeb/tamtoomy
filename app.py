@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify
 import datetime
 import json
+import os
 from google.cloud import bigquery
 
 app = Flask(__name__)
@@ -9,7 +10,8 @@ app = Flask(__name__)
 TARGET_DATE = datetime.datetime(2025, 8, 10)
 
 # Initialize BigQuery client
-client = bigquery.Client()
+credentials_info = json.loads(os.environ["GOOGLE_CREDENTIALS"])
+client = bigquery.Client.from_service_account_info(credentials_info)
 
 # Define your dataset & table for notes (update accordingly)
 DATASET_ID = "your_dataset_id"
