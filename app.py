@@ -14,8 +14,8 @@ credentials_info = json.loads(os.environ["GOOGLE_CREDENTIALS"])
 client = bigquery.Client.from_service_account_info(credentials_info)
 
 # Define your dataset & table for notes (update accordingly)
-DATASET_ID = "your_dataset_id"
-TABLE_ID = "your_table_id"
+DATASET_ID = "notes"
+TABLE_ID = "note_list"
 
 def get_time_left():
     now = datetime.datetime.utcnow()
