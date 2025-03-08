@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            padding: 50px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        .note {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin: 10px 0;
+            font-size: 1.5rem;
+            border-radius: 10px;
+        }
+        .back-btn {
+            margin-top: 20px;
+            background: white;
+            color: #4a148c;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Notes</h1>
+        {% for note in notes %}
+            <div class="note">{{ note }}</div>
+        {% endfor %}
+        <button class="back-btn" onclick="window.location.href='/'">Back</button>
+    </div>
+</body>
+</html>
