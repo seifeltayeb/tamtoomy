@@ -1,58 +1,52 @@
 from flask import Flask, render_template, jsonify
-from datetime import datetime
+import datetime
+import json
 from google.cloud import bigquery
 
 app = Flask(__name__)
 
-# Set target date (10 Aug 2025)
-TARGET_DATE = datetime(2025, 8, 10, 0, 0)
-
-@app.route('/')
-def index():
-    now = datetime.now()
-    delta = TARGET_DATE - now
-
-    time_remaining = {
-        "days": max(delta.days, 0),
-        "hours": max(delta.seconds // 3600, 0),
-        "minutes": max((delta.seconds // 60) % 60, 0),
-    }
-
-    return render_template('index.html', time=time_remaining)
+# Target date
+TARGET_DATE = datetime.datetime(2025, 8, 10)
 
 # Initialize BigQuery client
 client = bigquery.Client()
 
-# Replace with your BigQuery project & dataset
-BQ_PROJECT = "your_project"
-BQ_DATASET = "your_dataset"
-BQ_TABLE = f"{BQ_PROJECT}.{BQ_DATASET}.notes"
+# Define your dataset & table for notes (update accordingly)
+DATASET_ID = "your_dataset_id"
+TABLE_ID = "your_table_id"
 
-@app.route("/notes")
-def notes():
-    today = datetime.date.today().strftime('%Y-%m-%d')
-    
+def get_time_left():
+    now = datetime.datetime.utcnow()
+    time_diff = TARGET_DATE - now
+    return {
+        "days": max(time_diff.days, 0),
+        "hours": max(time_diff.seconds // 3600, 0),
+        "minutes": max((time_diff.seconds // 60) % 60, 0)
+    }
+
+def get_unlocked_notes():
+    """Fetch notes from BigQuery that should be unlocked based on the current date."""
+    now = datetime.datetime.utcnow().date()
     query = f"""
-        SELECT note_text FROM `{BQ_TABLE}`
-        WHERE unlock_date <= '{today}'
+        SELECT note_text, unlock_date 
+        FROM `{DATASET_ID}.{TABLE_ID}`
+        WHERE unlock_date <= DATE('{now}')
         ORDER BY unlock_date ASC
     """
     results = client.query(query).result()
-    notes_list = [row["note_text"] for row in results]
+    return [{"text": row.note_text, "date": row.unlock_date.strftime("%Y-%m-%d")} for row in results]
 
-    return render_template("notes.html", notes=notes_list)
+@app.route("/")
+def home():
+    return render_template("index.html", time=get_time_left())
 
+@app.route("/time")
+def time():
+    return jsonify(get_time_left())
 
-@app.route('/time')
-def get_time():
-    now = datetime.now()
-    delta = TARGET_DATE - now
+@app.route("/notes")
+def notes():
+    return render_template("notes.html", notes=get_unlocked_notes())
 
-    return jsonify({
-        "days": max(delta.days, 0),
-        "hours": max(delta.seconds // 3600, 0),
-        "minutes": max((delta.seconds // 60) % 60, 0),
-    })
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
