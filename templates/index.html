@@ -6,11 +6,7 @@
   <title>Countdown Timer</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: linear-gradient(135deg, #2c003e, #560bad);
       font-family: 'Montserrat', sans-serif;
@@ -20,28 +16,16 @@
       min-height: 100vh;
       color: #fff;
       text-align: center;
-      overflow: hidden;
     }
     .container {
       max-width: 600px;
       padding: 40px 20px;
       width: 100%;
     }
-    .header-image {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin: 0 auto 30px;
-      display: block;
-      border: 4px solid #fff;
-    }
     h1 {
       font-size: 3.5rem;
       font-weight: 600;
       margin-bottom: 40px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
     }
     .timer {
       display: flex;
@@ -51,39 +35,24 @@
     .time-box {
       background: rgba(255, 255, 255, 0.1);
       padding: 30px 20px;
-      flex: 1;
       min-width: 100px;
       transition: transform 0.3s ease;
     }
-    .time-box:hover {
-      transform: scale(1.05);
-    }
-    .time-box span {
-      display: block;
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .label {
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-      opacity: 0.8;
-    }
-    /* Notes button */
-    .notes-btn {
-      margin-top: 30px;
+    .time-box:hover { transform: scale(1.05); }
+    .time-box span { font-size: 4rem; font-weight: 700; }
+    .label { font-size: 1.2rem; opacity: 0.8; }
+    .notes-button {
+      display: inline-block;
+      margin-top: 40px;
       padding: 15px 30px;
       font-size: 1.2rem;
       font-weight: 600;
       color: #fff;
-      background: rgba(255, 255, 255, 0.2);
+      background: #ff6200;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .notes-btn:hover {
-      background: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
     }
   </style>
   <script>
@@ -97,21 +66,13 @@
         })
         .catch(error => console.error('Error fetching time:', error));
     }
-    updateTimer(); // Initial fetch
-    setInterval(updateTimer, 60000); // Update every 60 seconds
-
-    function addNote() {
-      let note = prompt("Enter your note:");
-      if (note) {
-        alert("Note saved: " + note);
-      }
-    }
+    updateTimer();
+    setInterval(updateTimer, 60000);
   </script>
 </head>
 <body>
   <div class="container">
-    <img class="header-image" src="https://i.ibb.co/pBP1Sv1n/358032417-122316164241779-939224877035827866-n.jpg" alt="Header Image">
-    <h1>One by One...<br>Can't Binge This One!</h1>
+    <h1>One by One...</br>Can't Binge This One!</h1>
     <div class="timer">
       <div class="time-box">
         <span id="days">{{ time.days }}</span>
@@ -126,7 +87,9 @@
         <div class="label">M</div>
       </div>
     </div>
-    <button class="notes-btn" onclick="addNote()">Add Note</button>
+
+    <!-- Button to Notes Page -->
+    <a href="/notes" class="notes-button">click for love notes</a>
   </div>
 </body>
 </html>
