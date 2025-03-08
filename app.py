@@ -4,6 +4,8 @@ import json
 import os
 from google.cloud import bigquery
 
+
+
 app = Flask(__name__)
 
 # Target date
@@ -46,9 +48,23 @@ def home():
 def time():
     return jsonify(get_time_left())
 
-@app.route("/notes")
-def notes():
-    return render_template("notes.html", notes=get_unlocked_notes())
+@app.route('/notes')
+def notes_page():
+    return render_template("notes.html")
+
+@app.route('/notes-data')
+def get_notes():
+    query = f"""
+    SELECT title, content FROM `{DATASET_ID}.{TABLE_ID}.notes`
+    WHERE unlock_date <= CURRENT_TIMESTAMP()
+    ORDER BY unlock_date DESC
+    """
+    query_job = client.query(query)
+    results = query_job.result()
+
+    notes = [{"title": row["title"], "content": row["content"]} for row in results]
+
+    return jsonify(notes)
 
 if __name__ == "__main__":
     app.run(debug=True)
