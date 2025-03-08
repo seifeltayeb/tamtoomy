@@ -4,6 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown Timer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff99cc, #cc66ff);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .time-box {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+    </style>
     <script>
         function updateTimer() {
             let days = document.getElementById("days").textContent;
@@ -30,17 +68,18 @@
             document.getElementById("minutes").textContent = minutes;
             document.getElementById("seconds").textContent = seconds;
         }
-
         setInterval(updateTimer, 1000);
     </script>
 </head>
 <body>
-    <h1>Countdown to Event</h1>
-    <p>
-        <span id="days">{{ time.days }}</span> Days 
-        <span id="hours">{{ time.hours }}</span> Hours 
-        <span id="minutes">{{ time.minutes }}</span> Minutes 
-        <span id="seconds">{{ time.seconds }}</span> Seconds
-    </p>
+    <div class="container">
+        <h1>Countdown to Something Amazing!</h1>
+        <div class="timer">
+            <div class="time-box"><span id="days">{{ time.days }}</span> Days</div>
+            <div class="time-box"><span id="hours">{{ time.hours }}</span> Hours</div>
+            <div class="time-box"><span id="minutes">{{ time.minutes }}</span> Minutes</div>
+            <div class="time-box"><span id="seconds">{{ time.seconds }}</span> Seconds</div>
+        </div>
+    </div>
 </body>
 </html>
