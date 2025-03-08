@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <script>
+        function updateTimer() {
+            let days = document.getElementById("days").textContent;
+            let hours = document.getElementById("hours").textContent;
+            let minutes = document.getElementById("minutes").textContent;
+            let seconds = document.getElementById("seconds").textContent;
+
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes = 59;
+                hours--;
+            }
+            if (hours < 0) {
+                hours = 23;
+                days--;
+            }
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
+</head>
+<body>
+    <h1>Countdown to Event</h1>
+    <p>
+        <span id="days">{{ time.days }}</span> Days 
+        <span id="hours">{{ time.hours }}</span> Hours 
+        <span id="minutes">{{ time.minutes }}</span> Minutes 
+        <span id="seconds">{{ time.seconds }}</span> Seconds
+    </p>
+</body>
+</html>
