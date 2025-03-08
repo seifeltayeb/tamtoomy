@@ -57,7 +57,7 @@ def notes_page():
 def get_notes():
     now = datetime.datetime.utcnow().date().strftime('%Y-%m-%d')
     query = f"""
-    SELECT title, content FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
+    SELECT note_title as title, note_text as content FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
         WHERE DATE(unlock_date) <= DATE('{now}')
         ORDER BY unlock_date ASC
     """
