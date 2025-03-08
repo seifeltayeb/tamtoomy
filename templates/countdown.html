@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown Timer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #ff99cc, #cc66ff);
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,28 +18,32 @@
             text-align: center;
         }
         .container {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
         }
         h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
         }
         .timer {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            font-size: 2rem;
+            justify-content: space-between;
+            font-size: 1.8rem;
             font-weight: 600;
+            margin-top: 20px;
         }
         .time-box {
-            background: rgba(255, 255, 255, 0.3);
-            padding: 20px;
-            border-radius: 10px;
-            min-width: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            min-width: 70px;
+            flex: 1;
+            margin: 0 5px;
         }
     </style>
     <script>
@@ -73,12 +77,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Countdown to Something Amazing!</h1>
+        <h1>Exciting Countdown!</h1>
         <div class="timer">
-            <div class="time-box"><span id="days">{{ time.days }}</span> Days</div>
-            <div class="time-box"><span id="hours">{{ time.hours }}</span> Hours</div>
-            <div class="time-box"><span id="minutes">{{ time.minutes }}</span> Minutes</div>
-            <div class="time-box"><span id="seconds">{{ time.seconds }}</span> Seconds</div>
+            <div class="time-box"><span id="days">{{ time.days }}</span><br>Days</div>
+            <div class="time-box"><span id="hours">{{ time.hours }}</span><br>Hours</div>
+            <div class="time-box"><span id="minutes">{{ time.minutes }}</span><br>Minutes</div>
+            <div class="time-box"><span id="seconds">{{ time.seconds }}</span><br>Seconds</div>
         </div>
     </div>
 </body>
