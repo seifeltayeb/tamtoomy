@@ -55,10 +55,11 @@ def notes_page():
 
 @app.route('/notes-data')
 def get_notes():
+    now = datetime.datetime.utcnow().date().strftime('%Y-%m-%d')
     query = f"""
     SELECT title, content FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
-    WHERE unlock_date <= CURRENT_TIMESTAMP()
-    ORDER BY unlock_date DESC
+        WHERE DATE(unlock_date) <= DATE('{now}')
+        ORDER BY unlock_date ASC
     """
     query_job = client.query(query)
     results = query_job.result()
