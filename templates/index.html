@@ -1,34 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script>
-        function updateTimer() {
-            fetch('/time')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("days").textContent = data.days;
-                    document.getElementById("hours").textContent = data.hours;
-                    document.getElementById("minutes").textContent = data.minutes;
-                })
-                .catch(error => console.error('Error fetching time:', error));
-        }
-
-        updateTimer(); // Fetch immediately on page load
-        setInterval(updateTimer, 60000); // Update every 60 seconds
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countdown Timer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(135deg, #2c003e, #560bad);
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .container {
+      max-width: 600px;
+      padding: 40px 20px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 600;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .time-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 20px;
+      flex: 1;
+      min-width: 100px;
+      transition: transform 0.3s ease;
+    }
+    .time-box:hover {
+      transform: scale(1.05);
+    }
+    .time-box span {
+      display: block;
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .label {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      opacity: 0.8;
+    }
+  </style>
+  <script>
+    function updateTimer() {
+      fetch('/time')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("days").textContent = data.days;
+          document.getElementById("hours").textContent = data.hours;
+          document.getElementById("minutes").textContent = data.minutes;
+        })
+        .catch(error => console.error('Error fetching time:', error));
+    }
+    // Initial call and update every 60 seconds
+    updateTimer();
+    setInterval(updateTimer, 60000);
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Countdown to Aug 10, 2025!</h1>
-        <div class="timer">
-            <div class="time-box"><span id="days">{{ time.days }}</span>D</div>
-            <div class="time-box"><span id="hours">{{ time.hours }}</span>H</div>
-            <div class="time-box"><span id="minutes">{{ time.minutes }}</span>M</div>
-        </div>
+  <div class="container">
+    <h1>Countdown to Aug 10, 2025</h1>
+    <div class="timer">
+      <div class="time-box">
+        <span id="days">{{ time.days }}</span>
+        <div class="label">D</div>
+      </div>
+      <div class="time-box">
+        <span id="hours">{{ time.hours }}</span>
+        <div class="label">H</div>
+      </div>
+      <div class="time-box">
+        <span id="minutes">{{ time.minutes }}</span>
+        <div class="label">M</div>
+      </div>
     </div>
+  </div>
 </body>
 </html>
