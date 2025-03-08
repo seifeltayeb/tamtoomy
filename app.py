@@ -18,6 +18,7 @@ client = bigquery.Client.from_service_account_info(credentials_info)
 # Define your dataset & table for notes (update accordingly)
 DATASET_ID = "notes"
 TABLE_ID = "note_list"
+PROJECT_ID= "tamtoomy"
 
 def get_time_left():
     now = datetime.datetime.utcnow()
@@ -33,7 +34,7 @@ def get_unlocked_notes():
     now = datetime.datetime.utcnow().date()
     query = f"""
         SELECT note_text, unlock_date 
-        FROM `{DATASET_ID}.{TABLE_ID}`
+        FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
         WHERE unlock_date <= DATE('{now}')
         ORDER BY unlock_date ASC
     """
@@ -55,7 +56,7 @@ def notes_page():
 @app.route('/notes-data')
 def get_notes():
     query = f"""
-    SELECT title, content FROM `{DATASET_ID}.{TABLE_ID}.notes`
+    SELECT title, content FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
     WHERE unlock_date <= CURRENT_TIMESTAMP()
     ORDER BY unlock_date DESC
     """
