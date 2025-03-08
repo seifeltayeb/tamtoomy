@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 from datetime import datetime
+from google.cloud import bigquery
 
 app = Flask(__name__)
 
