@@ -1,108 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Countdown Timer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background: linear-gradient(135deg, #2c003e, #560bad);
-      font-family: 'Montserrat', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #fff;
-      text-align: center;
-      overflow: hidden;
-    }
-    .container {
-      max-width: 600px;
-      padding: 40px 20px;
-      width: 100%;
-    }
-    .header-image {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin: 0 auto 30px;
-      display: block;
-      border: 4px solid #fff;
-    }
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 600;
-      margin-bottom: 40px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .timer {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-    .time-box {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px 20px;
-      flex: 1;
-      min-width: 100px;
-      transition: transform 0.3s ease;
-    }
-    .time-box:hover {
-      transform: scale(1.05);
-    }
-    .time-box span {
-      display: block;
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .label {
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-      opacity: 0.8;
-    }
-  </style>
-  <script>
-    function updateTimer() {
-      fetch('/time')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById("days").textContent = data.days;
-          document.getElementById("hours").textContent = data.hours;
-          document.getElementById("minutes").textContent = data.minutes;
-        })
-        .catch(error => console.error('Error fetching time:', error));
-    }
-    updateTimer(); // Initial fetch
-    setInterval(updateTimer, 60000); // Update every 60 seconds
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One by One, Can't Binge This One</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+        .banner {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            text-align: right;
+        }
+        .banner button {
+            background: white;
+            color: #4a148c;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+        .banner button:hover {
+            background: #ffeb3b;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+        .timer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .time-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            min-width: 100px;
+            flex: 1;
+            margin: 0 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+        span {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <img class="header-image" src="https://i.ibb.co/pBP1Sv1n/358032417-122316164241779-939224877035827866-n.jpg" alt="Header Image">
-    <h1>One by One...<br>Can’t Binge This One!</h1>
-    <div class="timer">
-      <div class="time-box">
-        <span id="days">{{ time.days }}</span>
-        <div class="label">D</div>
-      </div>
-      <div class="time-box">
-        <span id="hours">{{ time.hours }}</span>
-        <div class="label">H</div>
-      </div>
-      <div class="time-box">
-        <span id="minutes">{{ time.minutes }}</span>
-        <div class="label">M</div>
-      </div>
+    <div class="banner">
+        <button onclick="window.location.href='/notes'">Notes</button>
     </div>
-  </div>
+    
+    <div class="container">
+        <h1>One by One, Can't Binge This One</h1>
+        <div class="timer">
+            <div class="time-box"><span id="days">{{ time.days }}</span>D</div>
+            <div class="time-box"><span id="hours">{{ time.hours }}</span>H</div>
+            <div class="time-box"><span id="minutes">{{ time.minutes }}</span>M</div>
+        </div>
+    </div>
 </body>
 </html>
