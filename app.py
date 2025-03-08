@@ -1,25 +1,29 @@
-from flask import Flask, render_template
-from datetime import datetime
+from flask import Flask, render_template, jsonify
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-event_date = "2025-12-31 23:59:59"  # Change to your target date
-
-def get_remaining_time():
-    now = datetime.now()
-    event_time = datetime.strptime(event_date, "%Y-%m-%d %H:%M:%S")
-    remaining = event_time - now
-    return {
-        "days": remaining.days,
-        "hours": remaining.seconds // 3600,
-        "minutes": (remaining.seconds // 60) % 60,
-        "seconds": remaining.seconds % 60
-    }
+# Set your countdown target
+TARGET_DATE = datetime(2025, 08, 10, 23, 59)
 
 @app.route('/')
-def countdown():
-    remaining_time = get_remaining_time()
-    return render_template("countdown.html", time=remaining_time)
+def index():
+    now = datetime.now()
+    delta = TARGET_DATE - now
+    time_remaining = {
+        "days": delta.days,
+        "hours": delta.seconds // 3600,
+        "minutes": (delta.seconds // 60) % 60
+    }
+    return render_template("index.html", time=time_remaining)
+
+@app.route('/notify')
+def notify():
+    now = datetime.now()
+    delta = TARGET_DATE - now
+    if delta.days == 0 and delta.seconds // 3600 == 0 and (delta.seconds // 60) % 60 == 0:
+        return jsonify({"message": "Time is up!"})
+    return jsonify({"message": None})
 
 if __name__ == '__main__':
     app.run(debug=True)
