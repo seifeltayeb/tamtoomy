@@ -1,0 +1,49 @@
+<script>
+    function updateTimer() {
+        let days = document.getElementById("days").textContent;
+        let hours = document.getElementById("hours").textContent;
+        let minutes = document.getElementById("minutes").textContent;
+
+        minutes--;
+        if (minutes < 0) {
+            minutes = 59;
+            hours--;
+        }
+        if (hours < 0) {
+            hours = 23;
+            days--;
+        }
+
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+    }
+    setInterval(updateTimer, 60000);
+
+    // Request notification permission
+    function requestNotificationPermission() {
+        if ("Notification" in window) {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    console.log("Notifications enabled");
+                    checkForUpdates();
+                }
+            });
+        }
+    }
+
+    // Check server for notifications every minute
+    function checkForUpdates() {
+        setInterval(() => {
+            fetch("/notify")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message && "Notification" in window && Notification.permission === "granted") {
+                        new Notification(data.message);
+                    }
+                });
+        }, 60000);
+    }
+
+    requestNotificationPermission();
+</script>
