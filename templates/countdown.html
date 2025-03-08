@@ -4,86 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown Timer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            color: white;
-            text-align: center;
         }
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 50px;
-            border-radius: 16px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            width: 90%;
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            color: #4a148c;
+            margin-bottom: 20px;
         }
         .timer {
             display: flex;
-            justify-content: space-between;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-top: 20px;
+            justify-content: center;
+            gap: 20px;
         }
         .time-box {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 12px;
-            min-width: 70px;
-            flex: 1;
-            margin: 0 5px;
+            background-color: #e1bee7;
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 80px;
+        }
+        .time-box span {
+            display: block;
+            font-size: 2rem;
+            color: #4a148c;
+        }
+        .time-box label {
+            font-size: 1rem;
+            color: #7b1fa2;
         }
     </style>
-    <script>
-        function updateTimer() {
-            let days = document.getElementById("days").textContent;
-            let hours = document.getElementById("hours").textContent;
-            let minutes = document.getElementById("minutes").textContent;
-            let seconds = document.getElementById("seconds").textContent;
-
-            seconds--;
-            if (seconds < 0) {
-                seconds = 59;
-                minutes--;
-            }
-            if (minutes < 0) {
-                minutes = 59;
-                hours--;
-            }
-            if (hours < 0) {
-                hours = 23;
-                days--;
-            }
-
-            document.getElementById("days").textContent = days;
-            document.getElementById("hours").textContent = hours;
-            document.getElementById("minutes").textContent = minutes;
-            document.getElementById("seconds").textContent = seconds;
-        }
-        setInterval(updateTimer, 1000);
-    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Exciting Countdown!</h1>
+        <h1>Event Countdown</h1>
         <div class="timer">
-            <div class="time-box"><span id="days">{{ time.days }}</span><br>Days</div>
-            <div class="time-box"><span id="hours">{{ time.hours }}</span><br>Hours</div>
-            <div class="time-box"><span id="minutes">{{ time.minutes }}</span><br>Minutes</div>
-            <div class="time-box"><span id="seconds">{{ time.seconds }}</span><br>Seconds</div>
+            <div class="time-box">
+                <span id="days">00</span>
+                <label>Days</label>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <label>Hours</label>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <label>Minutes</label>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <label>Seconds</label>
+            </div>
         </div>
     </div>
+
+    <script>
+        const countdownDate = new Date("Dec 31, 2025 23:59:59").getTime();
+
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.querySelector(".container").innerHTML = "<h1>Event Started!</h1>";
+            }
+        };
+
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
 </body>
 </html>
