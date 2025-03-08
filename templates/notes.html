@@ -1,54 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #4a148c, #7b1fa2);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            color: white;
-            text-align: center;
-        }
-        .container {
-            padding: 50px;
-            max-width: 600px;
-            margin: auto;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-        }
-        .note {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            margin: 10px 0;
-            font-size: 1.5rem;
-            border-radius: 10px;
-        }
-        .back-btn {
-            margin-top: 20px;
-            background: white;
-            color: #4a148c;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 5px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(135deg, #2c003e, #560bad);
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      padding: 40px 20px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+    .notes-container {
+      max-height: 350px;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .note {
+      padding: 15px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+    }
+    .note-title { font-size: 1.4rem; font-weight: 600; }
+    .note-content { font-size: 1rem; }
+    .back-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      background: #ff6200;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+  <script>
+    function fetchNotes() {
+      fetch('/notes-data')  // Backend route
+        .then(response => response.json())
+        .then(data => {
+          const notesContainer = document.getElementById("notes-container");
+          notesContainer.innerHTML = ""; // Clear existing notes
+
+          if (data.length === 0) {
+            notesContainer.innerHTML = "<p>No notes available.</p>";
+          } else {
+            data.forEach(note => {
+              const noteElement = document.createElement("div");
+              noteElement.classList.add("note");
+              noteElement.innerHTML = `
+                <div class="note-title">${note.title}</div>
+                <div class="note-content">${note.content}</div>
+              `;
+              notesContainer.appendChild(noteElement);
+            });
+          }
+        })
+        .catch(error => console.error('Error fetching notes:', error));
+    }
+    
+    fetchNotes(); // Load notes on page load
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Your Notes</h1>
-        {% for note in notes %}
-            <div class="note">{{ note }}</div>
-        {% endfor %}
-        <button class="back-btn" onclick="window.location.href='/'">Back</button>
+  <div class="container">
+    <h1>Notes</h1>
+    <div class="notes-container" id="notes-container">
+      <p>Loading notes...</p>
     </div>
+
+    <!-- Back to Countdown -->
+    <a href="/" class="back-button">Back to Countdown</a>
+  </div>
 </body>
 </html>
